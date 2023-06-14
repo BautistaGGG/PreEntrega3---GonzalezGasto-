@@ -5,7 +5,7 @@ function App() {
   return (
     <main>
       <NavBar/>
-      <ItemListContainer greeting="No tienes items en el carrito - Mensaje transmitido via props."/>
+      <ItemListContainer greeting="Proximamente items del catálogo - Mensaje transmitido via props."/>
     </main>
   )
 }

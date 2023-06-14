@@ -2,7 +2,7 @@
 
 function ItemListContainer({greeting}) {
   return (
-    <section className="bg-slate-500 text-center absolute right-0">
+    <section className="bg-slate-500 text-center">
         <h1 className="p-4">
           {greeting}
         </h1>
