@@ -2,7 +2,6 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import CartWidget from "./CartWidget"
-import ItemListContainer from "./ItemListContainer"
 
 function NavBar() {
   return (
