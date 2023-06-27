@@ -17,7 +17,7 @@ function ItemCount() {
 
 
   return (
-    <div className="border border-zinc-50"> 
+    <div className="border border-zinc-50 my-4 p-4"> 
         <h2 className="text-2xl">Remeras oversize</h2>
         <p> Stock disponible: {stockDisponible} </p>
         <button className="bg-black text-white p-2 disabled:opacity-70" onClick={añadirItems} disabled={stockDisponible === 0}>
