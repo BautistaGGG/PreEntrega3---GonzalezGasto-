@@ -6,7 +6,7 @@ function App() {
     <main>
       <NavBar/>
       <ItemListContainer 
-        greeting="Proximamente items del catálogo - Mensaje transmitido via props."
+        greeting="Mensaje transmitido via props."
       />   
     </main>
   )
