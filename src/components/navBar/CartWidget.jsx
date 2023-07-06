@@ -1,5 +1,3 @@
-//Icono importado de https://fontawesome.com/icons/cart-shopping?f=classic&s=solid&pc=%23f5f5f5
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons"
 

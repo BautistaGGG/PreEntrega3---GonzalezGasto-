@@ -2,6 +2,7 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import CartWidget from "./CartWidget"
+import { NavLink } from "react-router-dom"
 
 function NavBar() {
   return (
@@ -10,16 +11,16 @@ function NavBar() {
         
         <ul className="flex items-center justify-between gap-4">
           <li className="hover:cursor-pointer">
-            <a href="/">Home</a>
+            <NavLink to="/">Home</NavLink>
           </li>
           <li className="hover:cursor-pointer">
-            <a href="#">Productos</a>
+            <NavLink to="/productos">Productos</NavLink>
           </li>
           <li className="hover:cursor-pointer">
-            <a href="#">About</a>
+            <NavLink to="/about">About</NavLink>
           </li>
           <li className="hover:cursor-pointer">
-            <a href="#">Contact</a>
+            <NavLink to="/contacto">Contact</NavLink>
           </li>
           <li className="border-2 border-slate-600 px-2 flex items-center gap-3 hover:cursor-pointer">
             <CartWidget/>
