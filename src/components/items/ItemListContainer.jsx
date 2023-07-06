@@ -4,6 +4,8 @@ import useFetch from "../hooks/useFetch"
 import ItemCount from "./ItemCount"
 import ItemList from "./ItemList"
 import Faq from "../../components/faq/Faq"
+import SpinnerLoader from "../spinnerLoader/SpinnerLoader"
+import { useNavigate } from "react-router-dom"
 
 function ItemListContainer({greeting}) {
 
@@ -11,6 +13,7 @@ function ItemListContainer({greeting}) {
 
   const [productoBuscado,setProductoBuscado] = useState("")
   const [filteredData,setFilteredData] = useState("")
+  const navigate = useNavigate()
 
   function handleChange(e) {    
     setProductoBuscado(e.target.value)   
@@ -25,17 +28,30 @@ function ItemListContainer({greeting}) {
     document.getElementById("searchInput").value = ""
   }
 
+  function detalleDelProducto(id) {
+    navigate(`/producto/${id}`)    
+  }
+
+  //Componente Interno para mejor organización: Mostrando Productos
   function MostrandoProductos() {
     return(
       <>
-        {isLoading ? <p className="text-3xl text-center font-extrabold"> Cargando data...</p> : 
+        {isLoading ? <SpinnerLoader/> : 
         <ul className="grid grid-cols-responsive justify-items-center gap-4"> 
           {filteredData == "" ? APIdata.map(product => (
-            <li className="bg-slate-800 text-yellow-50 rounded-xl max-w-[275px] cursor-pointer transition-all duration-500 hover:scale-105 hover:bg-slate-700" key={product.id}>
-            <ItemList {...product}/>
-          </li>
+            <li 
+              className="bg-slate-800 text-yellow-50 rounded-xl max-w-[275px] cursor-pointer transition-all duration-500 hover:scale-105 hover:bg-slate-700" 
+              key={product.id} 
+              onClick={() => detalleDelProducto(product.id)}
+            >
+              <ItemList {...product}/>
+            </li>
           )) : filteredData.map(product => (
-            <li className="bg-slate-800 text-yellow-50 rounded-xl max-w-[275px] cursor-pointer transition-all duration-500 hover:scale-105 hover:bg-slate-700" key={product.id}>
+            <li 
+              className="bg-slate-800 text-yellow-50 rounded-xl max-w-[275px] cursor-pointer transition-all duration-500 hover:scale-105 hover:bg-slate-700" 
+              key={product.id} 
+              onClick={() => detalleDelProducto(product.id)}
+            >
               <ItemList {...product}/>
             </li>
             ))}

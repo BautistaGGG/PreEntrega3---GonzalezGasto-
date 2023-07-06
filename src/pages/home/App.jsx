@@ -9,7 +9,7 @@ function App() {
       <NavBar/>
       <Routes>
         <Route path="/" element={<ItemListContainer greeting="Mensaje transmitido via props."/>}/>
-        <Route path='/producto/:id' element={<ItemDetailContainer/>}/>
+        <Route path='/producto/:idProducto' element={<ItemDetailContainer/>}/>
       </Routes>
     </main>
   )
