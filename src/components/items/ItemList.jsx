@@ -1,4 +1,7 @@
 /* eslint-disable react/prop-types */
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
+
 function ItemList({name, description, image, price, stock}) {
   return (
           <>
@@ -8,6 +11,10 @@ function ItemList({name, description, image, price, stock}) {
               <p className="my-2">{description}</p>
               <p className="my-2">Stock disponible: {stock}</p>
               <p className="my-2 font-bold text-xl">$ {price} USD</p>
+              <button className="bg-slate-500 rounded-md p-2 mb-4">
+                <FontAwesomeIcon icon={faCartShopping} style={{color: "white"}} />
+                Añadir al carrito
+              </button>
             </div>
           </>      
   )
