@@ -1,8 +1,9 @@
-/*import { useState } from "react"
+/* eslint-disable react/prop-types */
+/*import SpinnerLoader from "../spinnerLoader/SpinnerLoader"
 
-function Categorias({APIcategorias}) {
+function Categorias({isLoadingCategorias,APIcategorias}) {
 
-    const [categoriaFiltrada,setCategoriaFiltrada] = useState("")
+    /*const [categoriaFiltrada,setCategoriaFiltrada] = useState("")
 
     function filtrandoCategorias() {
         setCategoriaFiltrada(
@@ -10,14 +11,15 @@ function Categorias({APIcategorias}) {
                 category.name.includes(categoriaFiltrada)
             })
         )
-    }
+    }*/
 
   return (
-      APIcategorias.map(categoria => (
-            <section key={categoria.id}>
-                <h3 onClick={filtrandoCategorias} className="cursor-pointer">{categoria.name}</h3>
-            </section>
-        ))
+    isLoadingCategorias ? 
+    <SpinnerLoader/> : APIcategorias.map(categoria => (
+          <button key={categoria.id} className="bg-slate-800 text-white p-2 border border-white hover:bg-slate-700">
+            {categoria.name}
+          </button>      
+    ))
   )
 }
 

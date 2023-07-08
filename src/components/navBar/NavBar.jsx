@@ -6,7 +6,7 @@ import { NavLink } from "react-router-dom"
 
 function NavBar() {
   return (
-    <nav className="bg-slate-800 text-white flex items-center justify-between p-4">
+    <nav className=" bg-[#030203] text-white flex items-center justify-between p-4">
         <a href="/" className="hover:cursor-pointer">BG's</a>
         
         <ul className="flex items-center justify-between gap-4">
