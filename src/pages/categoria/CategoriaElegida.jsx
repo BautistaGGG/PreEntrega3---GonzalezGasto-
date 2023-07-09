@@ -1,13 +1,16 @@
-import { NavLink, useParams } from "react-router-dom"
+import { useParams, NavLink } from "react-router-dom"
+import useFetch from "../../components/hooks/useFetch"
+import SpinnerLoader from "../../components/spinnerLoader/SpinnerLoader"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faArrowLeft, faCartShopping } from "@fortawesome/free-solid-svg-icons";
-import useFetch from "../hooks/useFetch";
-import SpinnerLoader from "../spinnerLoader/SpinnerLoader";
+import { faArrowLeft, faCartShopping } from "@fortawesome/free-solid-svg-icons"
 
-function ItemDetailContainer() {
-  const { idProducto } = useParams()
+function CategoriaElegida() {
 
-  const {APIdata, isLoading} = useFetch(`https://6499b22c79fbe9bcf83fccc5.mockapi.io/productos/${idProducto}`)
+  const {idCategoria} = useParams()
+
+  const {APIdata, isLoading} = useFetch(`https://6499b22c79fbe9bcf83fccc5.mockapi.io/productos/${idCategoria}`)
+  
+  console.log(APIdata)
 
   const historial = window.history
 
@@ -40,4 +43,4 @@ function ItemDetailContainer() {
   )
 }
 
-export default ItemDetailContainer
+export default CategoriaElegida
