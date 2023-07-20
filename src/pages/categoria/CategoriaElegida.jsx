@@ -1,5 +1,5 @@
 import { useParams, NavLink } from "react-router-dom"
-import useFetch from "../../components/hooks/useFetch"
+import useFetch from "../../hooks/useFetch"
 import SpinnerLoader from "../../components/spinnerLoader/SpinnerLoader"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faArrowLeft, faCartShopping } from "@fortawesome/free-solid-svg-icons"

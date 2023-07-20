@@ -1,18 +1,21 @@
 import NavBar from '../../components/navBar/NavBar'
 import ItemListContainer from '../../components/items/ItemListContainer'
 import ItemDetailContainer from '../../components/items/ItemDetailContainer'
-import CategoriaElegida from "../../pages/categoria/CategoriaElegida"
+import Carrito from "../carrito/Carrito"
 import { Routes,Route } from 'react-router-dom'
+import { CarritoProvider } from '../../context/Context_carrito'
 
 function App() {
   return (
-    <main>
-      <NavBar/>
-      <Routes>
-        <Route path='/' element={<ItemListContainer greeting="Mensaje transmitido via props."/>}/>
-        <Route path='/producto/:idProducto' element={<ItemDetailContainer/>}/>
-        <Route path='/categoria/:idCategoria' element={<CategoriaElegida/>} />
-      </Routes>
+    <main className='h-screen bg-[#030203]'>
+      <CarritoProvider>
+        <NavBar/>
+        <Routes>
+          <Route path='/' element={<ItemListContainer/>}/>
+          <Route path='/producto/:idProducto' element={<ItemDetailContainer/>}/>
+          <Route path='/carrito' element={<Carrito/>}/>
+        </Routes>
+      </CarritoProvider>
     </main>
   )
 }
