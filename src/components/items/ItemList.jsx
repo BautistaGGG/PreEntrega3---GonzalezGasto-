@@ -1,6 +1,8 @@
+/* eslint-disable react-refresh/only-export-components */
 /* eslint-disable react/prop-types */
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
+import { memo } from "react";
 
 function ItemList({name, description, image, price, stock, category, id, agregarAlCarrito,detalleDelProducto}) {
 
@@ -22,4 +24,4 @@ function ItemList({name, description, image, price, stock, category, id, agregar
   )
 }
 
-export default ItemList
+export default memo(ItemList)
