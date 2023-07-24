@@ -1,5 +1,6 @@
 import { useContext } from "react"
 import { ContextoCarrito } from "../../context/Context_carrito"
+import { useNavigate } from "react-router-dom"
 
 function Carrito() {
   const {
@@ -10,6 +11,12 @@ function Carrito() {
     precioTotal,
     cantidadTotalDeElementosEnCarrito
   } = useContext(ContextoCarrito)
+
+  const navigate = useNavigate()
+
+  function handleCheckout() {
+    navigate('/checkout')
+  }
 
   return (
     <main className="bg-[#030203] px-8">
@@ -41,7 +48,7 @@ function Carrito() {
         <p className="text-white text-center text-3xl my-4 "> 
           Precio final: {precioTotal} USD 
         </p>
-        <button className="bg-[#b05b30] block my-0 mx-auto p-2 text-white rounded-md hover:bg-zinc-950">
+        <button className="bg-[#b05b30] block my-0 mx-auto p-2 text-white rounded-md hover:bg-zinc-950" onClick={handleCheckout}>
           Checkout
         </button>
       </div>

@@ -19,7 +19,7 @@ function useFetch(url) {
             console.error("Hubo un error: " + error)
           }
        }
-      setTimeout(() => gettingInfoAPI(), 2000) 
+      setTimeout(() => gettingInfoAPI(), 750) 
     },[url])
     
     return { APIdata, isLoading }
