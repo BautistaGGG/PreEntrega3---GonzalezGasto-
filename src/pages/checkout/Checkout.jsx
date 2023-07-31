@@ -1,4 +1,6 @@
 import useForm from "../../hooks/useForm"
+import { useContext } from "react"
+import { ContextoCarrito } from "../../context/Context_carrito"
 
 const initialState = {
   name: {value: "", error: "", hasError: true, active: false, name: "name"},
@@ -11,6 +13,7 @@ const initialState = {
 
 function Checkout() {
   const [formState, inputHandler, cleaningInputs ,inputFocus, inputBlur] = useForm(initialState)
+  const {carrito, total} = useContext(ContextoCarrito)
 
   function handleChange(e) {    
     const {name, value} = e.target
@@ -23,6 +26,38 @@ function Checkout() {
 
   function onBlur({name}) {
     inputBlur({name})
+  }
+
+  async function onHandleOrdenCompra() {
+    const nuevaOrdenDeCompra = {
+      Comprador: {
+        Nombre: formState.name.value,
+        Apellido: formState.surname.value,
+        Email: formState.email.value,
+        DNI: formState.document.value,
+        Dirección: formState.address.value
+      },
+      creado: new Date(),
+      id: 1,
+      items: carrito,
+      metodoDePago: {
+        moneda: "USD",
+        metodo: "CASH",
+        tipo: "CASH"
+      },
+      vendedor:{
+        id: 1,
+        Nombre: "Pedro",
+        telefono: "428567",
+        email: "pedrinho@ema.com"
+      },
+      DatosDelEnvío:{
+        FechaEntrega: new Date() + 7,
+        NumeroDeTrackeo: "123opasdkpojasdpoj456",
+        Tipo: "Delivery"
+      },
+      total: total,
+    }
   }
 
   function onSubmitForm(e) {
