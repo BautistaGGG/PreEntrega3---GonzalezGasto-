@@ -1,6 +1,7 @@
 import { useContext } from "react"
 import { ContextoCarrito } from "../../context/Context_carrito"
 import { useNavigate } from "react-router-dom"
+import { firebaseServices } from "../../services/firebase/firebase"
 
 function Carrito() {
   const {
@@ -12,10 +13,26 @@ function Carrito() {
     cantidadTotalDeElementosEnCarrito
   } = useContext(ContextoCarrito)
 
+  async function handleCrearCarrito() {
+    const nuevoCarrito = {
+      Comprador: {
+        id: 1
+      },
+      productos: CarritoContext,
+      fechaDeCreación: new Date(),
+      total: precioTotal,
+      status: "pendiente"
+    }
+
+    const carritoID = await firebaseServices.crearCarrito(nuevoCarrito)
+    return carritoID
+  }
+
   const navigate = useNavigate()
 
-  function handleCheckout() {
-    navigate('/checkout')
+  async function handleCheckout() {
+    const carritoID = await handleCrearCarrito()
+    navigate('/checkout', { state: {carritoID: carritoID.id} })
   }
 
   return (

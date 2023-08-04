@@ -55,7 +55,6 @@ export default function useForm(initialState) {
 
         for(let valor in formState){
             const itemIndividual = formState[valor]
-            console.log(itemIndividual); 
             if(valor !== name && hasError){
                 isFormValid = false
                 break;

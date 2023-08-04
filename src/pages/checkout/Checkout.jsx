@@ -1,6 +1,8 @@
 import useForm from "../../hooks/useForm"
-import { useContext } from "react"
+import { useEffect, useContext, useMemo, useState } from "react"
 import { ContextoCarrito } from "../../context/Context_carrito"
+import { firebaseServices } from "../../services/firebase/firebase"
+import { useLocation } from "react-router-dom"
 
 const initialState = {
   name: {value: "", error: "", hasError: true, active: false, name: "name"},
@@ -12,8 +14,21 @@ const initialState = {
 }
 
 function Checkout() {
-  const [formState, inputHandler, cleaningInputs ,inputFocus, inputBlur] = useForm(initialState)
-  const {carrito, total} = useContext(ContextoCarrito)
+  const [formState, inputHandler, /*cleaningInputs*/ ,inputFocus, inputBlur] = useForm(initialState)
+  const {carrito, precioTotal, setcarrito} = useContext(ContextoCarrito)
+  const [ordenCreada, setOrdenCreada] = useState(null)
+  
+  let query = useQuery()
+
+  console.log(query.get("carritoID"));
+  
+  const {state} = useLocation()
+
+  function useQuery() {
+    const {search} = useLocation()
+
+    return useMemo(() => new URLSearchParams(search), [search])
+  }
 
   function handleChange(e) {    
     const {name, value} = e.target
@@ -28,7 +43,7 @@ function Checkout() {
     inputBlur({name})
   }
 
-  async function onHandleOrdenCompra() {
+  async function onHandleOrdenDeCompra() {
     const nuevaOrdenDeCompra = {
       Comprador: {
         Nombre: formState.name.value,
@@ -37,8 +52,7 @@ function Checkout() {
         DNI: formState.document.value,
         Dirección: formState.address.value
       },
-      creado: new Date(),
-      id: 1,
+      fechaDeCreación: new Date(),
       items: carrito,
       metodoDePago: {
         moneda: "USD",
@@ -56,14 +70,44 @@ function Checkout() {
         NumeroDeTrackeo: "123opasdkpojasdpoj456",
         Tipo: "Delivery"
       },
-      total: total,
+      total: precioTotal,
     }
+
+   const ordenFinalID = await firebaseServices.crearOrden(nuevaOrdenDeCompra)
+   await firebaseServices.actualizarCarrito(state?.carritoID)
+
+   return { ordenFinalID }
   }
 
-  function onSubmitForm(e) {
+  /* AL dirigirse hacia CHECKOUT, se GENERA la OREDEN DE COMPRA con
+    estado de "PENDIENTE", una vez COMPLETADO EL FORMULARIO y 
+    ENIVADO, el ESTADO se actualiza a "COMPLETO" */
+
+  async function onSubmitForm(e) {
     e.preventDefault()
-    console.log('formState', formState)   
+    const { ordenFinalID } = await onHandleOrdenDeCompra()
+    setOrdenCreada(ordenFinalID)
+    console.log("Orden de Compra REALIZADA");
   }
+
+  useEffect(() => {
+    const IDdelCarrito = query.get("carritoID") 
+    async function obtenerCarrito() {
+      const carrito = await firebaseServices.obtenerCarritoPorID(IDdelCarrito)
+      return carrito
+    }  
+
+    if(IDdelCarrito){
+      obtenerCarrito()
+        .then(carrito => {
+          setcarrito(carrito.productos)
+        })
+        .catch(err => {
+          console.log({err})
+        })
+  
+    }  
+  },[query])
 
   return (
     <main className="px-8">
@@ -159,6 +203,7 @@ function Checkout() {
               Enviar 
             </button>
         </form>
+        {ordenCreada !== null ? <h1 className="text-white text-center text-2xl">La orden de compra ID:{ordenCreada.id} fue creada correctamente!</h1> : null} 
     </main>
   )
 }
