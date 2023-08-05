@@ -7,15 +7,11 @@ import { useRef, useState, useContext, useEffect, memo } from "react"
 import { useNavigate } from "react-router-dom"
 import useFetch from "../../hooks/useFetch"
 import ItemList from "./ItemList"
-//import Faq from "../../components/faq/Faq"
 import SpinnerLoader from "../spinnerLoader/SpinnerLoader"
-//import Categorias from "../categorias/Categorias"
 import { ContextoCarrito } from "../../context/Context_carrito"
 
 function ItemListContainer() {
   //Logica interna del sitio
-  //const [productoBuscado,setProductoBuscado] = useState("")
-  //const [filteredData,setFilteredData] = useState("")
   const [categoria,setCategoria] = useState("")
   const [busquedaPorCategoria,setBusquedaPorCategoria] = useState(false)
 
@@ -35,19 +31,6 @@ function ItemListContainer() {
   },[APIdata,setProductosData])
 
   const navigate = useNavigate()
-
-  /*function handleChange(e) {    
-    setProductoBuscado(e.target.value.charAt(0).toUpperCase() + e.target.value.slice(1)) 
-  }
-
-  function filtrandoProductos() {
-    setFilteredData(
-      APIdata.filter(product => (
-       product.name.includes(productoBuscado)
-      ))
-    )
-    document.getElementById("searchInput").value = ""
-  }*/
 
   function detalleDelProducto(id) {
     navigate(`/producto/${id}`)    
@@ -87,11 +70,11 @@ function ItemListContainer() {
         {isLoading ? <SpinnerLoader/> : 
         <ul className="grid grid-cols-responsive justify-items-center gap-4 mt-6"> 
           {categoria == "" ? APIdata.map(product => (
-            <li key={product.id} className="bg-zinc-950 text-white rounded-xl max-w-[275px] cursor-pointer transition-all duration-500 hover:scale-105 hover:bg-[#030203]">
+            <li key={product.id} className="flex flex-col justify-between bg-zinc-950 text-white rounded-xl max-w-[275px] cursor-pointer transition-all duration-500 hover:scale-105 hover:bg-[#030203]">
               <ItemList {...product} detalleDelProducto={detalleDelProducto} agregarAlCarrito={onAgregarAlCarrito}/>
             </li>
           )) : categoria.map(product => (
-            <li key={product.id} className="bg-zinc-950 text-white rounded-xl max-w-[275px] cursor-pointer transition-all duration-500 hover:scale-105 hover:bg-[#030203]">
+            <li key={product.id} className="flex flex-col justify-between bg-zinc-950 text-white rounded-xl max-w-[275px] cursor-pointer transition-all duration-500 hover:scale-105 hover:bg-[#030203]">
               <ItemList {...product} detalleDelProducto={detalleDelProducto} agregarAlCarrito={onAgregarAlCarrito}/>
             </li>
             ))}
@@ -107,7 +90,7 @@ function ItemListContainer() {
       isLoadingCategorias ? <SpinnerLoader/> : 
       arrayDeCateogriasSinRepetir.map(categoria => (
           <button 
-            className="text-[#b05b30] bg-zinc-950 p-2 rounded-sm border border-[#b05b30] select-none hover:bg-[#b05b30] hover:text-zinc-950 focus:outline-none focus:shadow-md focus:shadow-[#b05b30]"
+            className="bg-zinc-950 text-[#b05b30] text-xl p-2 rounded-sm border border-[#b05b30] select-none hover:bg-[#b05b30] hover:text-zinc-950 focus:outline-none focus:shadow-md focus:shadow-[#b05b30]"
             key={categoria} 
             onClick={() => filtrandoPorCategorias(categoria)}
           >
@@ -141,9 +124,7 @@ function ItemListContainer() {
     )
   }
 
-  /*<input  type="text" placeholder="Busca un producto" id="searchInput" name="search" className="px-4 py-2 mb-4 rounded-l-sm hover:bg-gray-200 focus:outline-none focus:bg-gray-200" onChange={handleChange}/>
-  <button onClick={filtrandoProductos} className="bg-[#b05b30] text-zinc-950 p-2 rounded-r-sm hover:opacity-80 focus:outline-none focus:opacity-80 "> Buscar </button>*/
-  return (
+  return(
     <section className="bg-[#030203] text-center py-4 px-8">
         <article className="relative pb-4">
           <FontAwesomeIcon icon={faArrowLeft} onClick={handleClickIzquierda} type='button' className="absolute bottom-0 left-0 h-6 text-[#b05b30] cursor-pointer hover:scale-90 active:scale-75 block xl:hidden"/>

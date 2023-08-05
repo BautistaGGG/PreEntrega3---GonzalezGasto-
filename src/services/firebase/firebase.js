@@ -1,5 +1,4 @@
-import { collection, getFirestore, addDoc, query, where, documentId, updateDoc, doc, getDoc } from "firebase/firestore"
-
+import { collection, getFirestore, addDoc, updateDoc, doc, getDoc } from "firebase/firestore"
 
 export const firebaseServices = {
     crearOrden: async (ordenRealizada) => {
@@ -29,10 +28,6 @@ export const firebaseServices = {
      actualizarCarrito: async (carritoID) => {
         try {
             const db = getFirestore()
-            /*const query = query(
-                collection(db, "Carritos"),
-                where(documentId(), "===", carritoID)
-            )*/
             const referenciaDelDocumento = doc(db, "Carritos", carritoID)
             const data = {
                 status: "Completo"
@@ -48,7 +43,6 @@ export const firebaseServices = {
             const db = getFirestore()
             const referenciaDelDocumento = doc(db, "Carritos", carritoID)
             const dataDocumento = await getDoc(referenciaDelDocumento)
-            console.log(dataDocumento.data())
             return dataDocumento.data()
         }catch(err){
             return {err}

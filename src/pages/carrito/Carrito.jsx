@@ -37,7 +37,7 @@ function Carrito() {
 
   return (
     <main className="bg-[#030203] px-8">
-      <h1 className="text-white text-3xl text-center mb-4"> Carrito </h1>
+     {CarritoContext.length > 0 ? <h1 className="text-white text-3xl text-center mb-4"> Productos agregados al carrito: </h1> : null}
       <ul className="grid grid-cols-responsive justify-items-center gap-4 mt-6">
         {CarritoContext.length === 0 ? 
           <h3 className="text-white"> El carrito está vacio </h3> : 
@@ -65,8 +65,8 @@ function Carrito() {
         <p className="text-white text-center text-3xl my-4 "> 
           Precio final: {precioTotal} USD 
         </p>
-        <button className="bg-[#b05b30] block my-0 mx-auto p-2 text-white rounded-md hover:bg-zinc-950" onClick={handleCheckout}>
-          Checkout
+        <button className="bg-[#b05b30] block my-0 mx-auto p-2 text-white rounded-md transition-transform hover:bg-zinc-950 hover:scale-125" onClick={handleCheckout}>
+          Confirmar compra
         </button>
       </div>
       }

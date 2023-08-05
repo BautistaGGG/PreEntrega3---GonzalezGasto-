@@ -16,7 +16,7 @@ function ItemList({name, description, image, price, stock, category, id, agregar
               <p className="my-2">Stock disponible: {stock}</p>
               <p className="my-2 font-bold text-xl">$ {price} USD</p>
             </div>
-            <button className="bg-zinc-950 border border-[#b05b30] rounded-md p-2 mb-4 hover:bg-[#b05b30] focus:bg-[#b05b30] focus:outline-none" onClick={() => agregarAlCarrito(id)}>
+            <button className="bg-zinc-950 border border-[#b05b30] rounded-md p-2 mb-4 mx-4 hover:bg-[#b05b30] focus:bg-[#b05b30] focus:outline-none" onClick={() => agregarAlCarrito(id)}>
               <FontAwesomeIcon icon={faCartShopping} style={{color: "white"}}/>
               Añadir al carrito
             </button>

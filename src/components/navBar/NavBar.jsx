@@ -23,26 +23,14 @@ function NavBar() {
         
         <ul className="flex items-center justify-between gap-4">
           <li className="hover:cursor-pointer">
-            <NavLink to="/" style={({isActive}) => {return isActive ? {textDecoration: "underline", textDecorationColor: "#b05b30"} : {}}} className="hover:text-[#b05b30]">
+            <NavLink to="/" style={({isActive}) => {return isActive ? {color: "#b05b30"} : {}}} className="hover:text-[#b05b30]">
               Home
             </NavLink>
           </li>
 
           <li className="hover:cursor-pointer">
-            <NavLink to="/productos" style={({isActive}) => {return isActive ? {textDecoration: "underline", textDecorationColor: "#b05b30"} : {}}} className="hover:text-[#b05b30]">
-              Productos
-            </NavLink>
-          </li>
-
-          <li className="hover:cursor-pointer">
-            <NavLink to="/about" style={({isActive}) => {return isActive ? {textDecoration: "underline", textDecorationColor: "#b05b30"} : {}}} className="hover:text-[#b05b30]">
-              About
-            </NavLink>
-          </li>
-
-          <li className="hover:cursor-pointer">
-            <NavLink to="/contacto" style={({isActive}) => {return isActive ? {textDecoration: "underline", textDecorationColor: "#b05b30"} : {}}} className="hover:text-[#b05b30]">
-              Contact
+            <NavLink to="/about" style={({isActive}) => {return isActive ? {color: "#b05b30"} : {}}} className="hover:text-[#b05b30]">
+              Sobre nosotros
             </NavLink>
           </li>
 

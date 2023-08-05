@@ -1,8 +1,8 @@
-import useForm from "../../hooks/useForm"
 import { useEffect, useContext, useMemo, useState } from "react"
+import useForm from "../../hooks/useForm"
+import { useLocation, useNavigate } from "react-router-dom"
 import { ContextoCarrito } from "../../context/Context_carrito"
 import { firebaseServices } from "../../services/firebase/firebase"
-import { useLocation } from "react-router-dom"
 
 const initialState = {
   name: {value: "", error: "", hasError: true, active: false, name: "name"},
@@ -14,19 +14,18 @@ const initialState = {
 }
 
 function Checkout() {
-  const [formState, inputHandler, /*cleaningInputs*/ ,inputFocus, inputBlur] = useForm(initialState)
+  const [formState, inputHandler,inputFocus, inputBlur] = useForm(initialState)
   const {carrito, precioTotal, setcarrito} = useContext(ContextoCarrito)
   const [ordenCreada, setOrdenCreada] = useState(null)
   
   let query = useQuery()
-
-  console.log(query.get("carritoID"));
   
   const {state} = useLocation()
 
+  const navigate = useNavigate()
+
   function useQuery() {
     const {search} = useLocation()
-
     return useMemo(() => new URLSearchParams(search), [search])
   }
 
@@ -87,7 +86,9 @@ function Checkout() {
     e.preventDefault()
     const { ordenFinalID } = await onHandleOrdenDeCompra()
     setOrdenCreada(ordenFinalID)
-    console.log("Orden de Compra REALIZADA");
+    setTimeout(() => {
+      navigate('/ordenCreadaConExito', {state: {ordenFinalID: ordenFinalID.id}})
+    },1500)
   }
 
   useEffect(() => {
@@ -107,7 +108,7 @@ function Checkout() {
         })
   
     }  
-  },[query])
+  },[query, setcarrito])
 
   return (
     <main className="px-8">
@@ -129,7 +130,9 @@ function Checkout() {
                 onFocus={() => onFocus({name: "name"})}
                 onBlur={() => onBlur({name: "name"})}
             />
-            {formState.name.error !== "" ? <pre className="text-red-900 text-sm mb-4 mr-auto"> {formState.name.error} </pre> : null}
+            {formState.name.error !== "" ? 
+              <pre className="text-red-900 text-sm mb-4 mr-auto"> {formState.name.error} </pre> : 
+            null}
 
             <label className="text-white text-xs mb-2" htmlFor="surname">
               Apellido
@@ -146,7 +149,9 @@ function Checkout() {
                 onFocus={() => onFocus({name: 'surname'})}
                 onBlur={() => onBlur({name: 'surname'})}
             />
-            {formState.surname.error !== "" ? <pre className="text-red-900 text-sm mb-4 mr-auto"> {formState.surname.error} </pre> : null}
+            {formState.surname.error !== "" ? 
+              <pre className="text-red-900 text-sm mb-4 mr-auto"> {formState.surname.error} </pre> :
+            null}
 
             <label className="text-white text-xs mb-2" htmlFor="email">
               Email
@@ -163,7 +168,9 @@ function Checkout() {
                 onFocus={() => onFocus({name: 'email'})}
                 onBlur={() => onBlur({name: 'email'})}
             />
-            {formState.email.error !== "" ? <pre className="text-red-900 text-sm mb-4 mr-auto"> {formState.email.error} </pre> : null}
+            {formState.email.error !== "" ? 
+              <pre className="text-red-900 text-sm mb-4 mr-auto"> {formState.email.error} </pre> 
+            : null}
 
             <label className="text-white text-xs mb-2" htmlFor="document">
               Documento Nacional de Identidad
@@ -180,7 +187,9 @@ function Checkout() {
                 onFocus={() => onFocus({name: 'document'})}
                 onBlur={() => onBlur({name: 'document'})}
             />
-            {formState.document.error !== "" ? <pre className="text-red-900 text-sm mb-4 mr-auto"> {formState.document.error} </pre> : null}
+            {formState.document.error !== "" ? 
+              <pre className="text-red-900 text-sm mb-4 mr-auto"> {formState.document.error} </pre> :
+            null}
 
             <label className="text-white text-xs mb-2" htmlFor="address">
               Dirección
@@ -203,7 +212,10 @@ function Checkout() {
               Enviar 
             </button>
         </form>
-        {ordenCreada !== null ? <h1 className="text-white text-center text-2xl">La orden de compra ID:{ordenCreada.id} fue creada correctamente!</h1> : null} 
+        {ordenCreada !== null ? 
+        <h1 className="text-white text-center text-2xl">
+          La orden de compra fue creada correctamente! Sólo un paso más...
+        </h1> :null} 
     </main>
   )
 }
